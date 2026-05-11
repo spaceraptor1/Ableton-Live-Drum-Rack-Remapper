@@ -29,13 +29,21 @@ public class RackServiceTests {
     private Logger log = LoggerFactory.getLogger(RackServiceTests.class);
     private FileWriter fw;
 
+    private final String ADG_CONTENTS_DIRECTORY = System.getenv("Working_Dir") + "\\rackcopier_be\\src\\test\\resources\\adgcontents.txt";
+    //private final String[] NEW_SAMPLE_REFS= {}
+
+
     @BeforeEach
     void init() {
         try {
+
+            log.atInfo().log("adgcontents directory: " + ADG_CONTENTS_DIRECTORY);
+
+
             rackService = new RackService();
             builder = factory.newDocumentBuilder();
         } catch (ParserConfigurationException e) {
-            // TODO Auto-generated catch block
+
             e.printStackTrace();
         }
     }
@@ -81,7 +89,7 @@ public class RackServiceTests {
         Document doc = builder.parse(gis);
 
         Document output = rackService.copyRack(path, relPath, doc);
-        File f = new File("C:\\Users\\party\\OneDrive\\Desktop\\cmsc notes\\personal_projects\\rackcopy\\src\\test\\resources\\adgcontents.txt");
+        File f = new File(System.getenv("Working_Dir") + "\\rackcopy\\src\\test\\resources\\adgcontents.txt");
         fw = new FileWriter(f);
         NodeList nodeList = output.getChildNodes();
 

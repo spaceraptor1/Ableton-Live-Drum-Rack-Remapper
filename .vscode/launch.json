@@ -1,0 +1,18 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-RackcopierBeApplication<rackcopier_be>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.example.rackcopier_be.RackcopierBeApplication",
+            "projectName": "rackcopier_be",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env",
+            "env": {
+                "Working_Dir": "C:\\git repots\\Ableton-Live-Drum-Rack-Remapper",
+                "ADG_CONTENTS_DIR": "C:\\git repots\\Ableton-Live-Drum-Rack-Remapper\\rackcopier_be\\src\\test\\java\\com\\example\\rackcopier_be\\resources\\adgcontents.txt"
+            }
+        }
+    ]
+}

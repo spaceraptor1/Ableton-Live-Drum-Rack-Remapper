@@ -1,3 +1,11 @@
 {
-    "java.compile.nullAnalysis.mode": "automatic"
+    "java.compile.nullAnalysis.mode": "automatic",
+    "jdk.runConfig.cwd": "C:\\git repots\\Ableton-Live-Drum-Rack-Remapper",
+    "jdk.runConfig.env": "Working_Dir=C:\\git repots\\Ableton-Live-Drum-Rack-Remapper",
+
+    "java.test.config": {
+        "env": {
+            "Working_Dir": "C:\\git repots\\Ableton-Live-Drum-Rack-Remapper"
+        }
+    }
 }
