@@ -1,0 +1,3 @@
+"..\..\..\..\..\..\ableton\saved samples\m_drums\BREAKS\bernard\phaser bernard.wav"
+"..\..\..\..\..\..\ableton\saved samples\m_drums\BREAKS\bernard\phaser bernard b.wav"
+"..\..\..\..\..\..\ableton\saved samples\m_drums\BREAKS\bernard\phaser bernard c.wav"

@@ -21,24 +21,34 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import com.example.rackcopier_be.helpers.RackServiceTestsHelper;
+
+//@ConfigurationProperties(prefix = "rackservicetests")
 @SpringBootTest
 public class RackServiceTests {
     private static DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
     private static DocumentBuilder builder;
-    RackService rackService;
+    private RackService rackService;
+    //private RackServiceTestsConfig rstc = new RackServiceTestsConfig();
     private Logger log = LoggerFactory.getLogger(RackServiceTests.class);
     private FileWriter fw;
 
     private final String ADG_CONTENTS_DIRECTORY = System.getenv("Working_Dir") + "\\rackcopier_be\\src\\test\\resources\\adgcontents.txt";
-    //private final String[] NEW_SAMPLE_REFS= {}
+    private final String TEST_ADG_FILE = System.getenv("Working_Dir") + "\\rackcopier_be\\src\\test\\java\\com\\example\\rackcopier_be\\resources\\phaser bernard c.adg";
+
+    private final String SAMPLE_PATHS = RackServiceTestsHelper.read(System.getenv("Working_Dir") + "\\rackcopier_be\\src\\test\\java\\com\\example\\rackcopier_be\\resources\\sample_paths.txt");
+    private final String REL_SAMPLE_PATHS = RackServiceTestsHelper.read(System.getenv("Working_Dir") + "\\rackcopier_be\\src\\test\\java\\com\\example\\rackcopier_be\\resources\\rel_sample_paths.txt");
+    
 
 
     @BeforeEach
     void init() {
         try {
 
+            log.atInfo().log("test adg file directory: " + TEST_ADG_FILE);
             log.atInfo().log("adgcontents directory: " + ADG_CONTENTS_DIRECTORY);
-
+            log.atInfo().log("sample_paths: \n" + SAMPLE_PATHS);
+            log.atInfo().log("rel_sample_paths: \n" + REL_SAMPLE_PATHS);
 
             rackService = new RackService();
             builder = factory.newDocumentBuilder();
@@ -50,31 +60,17 @@ public class RackServiceTests {
 
     @Test
     void testGetPathList() {
-        ArrayList<String> paths = rackService
-                .getPathList("\"C:\\ableton\\saved samples\\m_drums\\LOOPS\\l8 b.wav\"\r\n" + //
-                        "\"C:\\ableton\\saved samples\\m_drums\\LOOPS\\l8.wav\"\r\n" + //
-                        "\"C:\\ableton\\saved samples\\m_drums\\LOOPS\\l9.wav\"");
+        ArrayList<String> paths = rackService.getPathList(SAMPLE_PATHS);
 
-        assertArrayEquals(
-                new String[] { "C:\\ableton\\saved samples\\m_drums\\LOOPS\\l8 b.wav",
-                        "C:\\ableton\\saved samples\\m_drums\\LOOPS\\l8.wav",
-                        "C:\\ableton\\saved samples\\m_drums\\LOOPS\\l9.wav" },
-                paths.toArray());
+        assertArrayEquals(RackServiceTestsHelper.getLines(SAMPLE_PATHS), paths.toArray());
     }
 
     @Test
     void testGetRelPaths() {
-        ArrayList<String> paths = rackService
-                .getPathList("\"C:\\ableton\\saved samples\\m_drums\\LOOPS\\l8 b.wav\"\r\n" + //
-                        "\"C:\\ableton\\saved samples\\m_drums\\LOOPS\\l8.wav\"\r\n" + //
-                        "\"C:\\ableton\\saved samples\\m_drums\\LOOPS\\l9.wav\"");
+        ArrayList<String> paths = rackService.getPathList(SAMPLE_PATHS);
         ArrayList<String> relPaths = rackService.getRelPathList(paths);
-        // log.atInfo().log(relPaths.get(0));
-        assertArrayEquals(relPaths.toArray(), new String[] {
-                "..\\..\\..\\..\\..\\..\\ableton\\saved samples\\m_drums\\LOOPS\\l8 b.wav",
-                "..\\..\\..\\..\\..\\..\\ableton\\saved samples\\m_drums\\LOOPS\\l8.wav",
-                "..\\..\\..\\..\\..\\..\\ableton\\saved samples\\m_drums\\LOOPS\\l9.wav"
-        });
+        
+        assertArrayEquals(relPaths.toArray(), RackServiceTestsHelper.getLines(REL_SAMPLE_PATHS));
     }
 
     @Test
