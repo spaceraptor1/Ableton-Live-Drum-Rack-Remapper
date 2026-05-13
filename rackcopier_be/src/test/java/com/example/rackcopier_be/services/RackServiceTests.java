@@ -61,7 +61,6 @@ public class RackServiceTests {
     @Test
     void testGetPathList() {
         ArrayList<String> paths = rackService.getPathList(SAMPLE_PATHS);
-
         assertArrayEquals(RackServiceTestsHelper.getLines(SAMPLE_PATHS), paths.toArray());
     }
 
@@ -75,17 +74,16 @@ public class RackServiceTests {
 
     @Test
     void copyRackTest() throws Exception {
-        File file = new File("C:\\Users\\party\\OneDrive\\Desktop\\cmsc notes\\Reach out.adg");
+        File file = new File(TEST_ADG_FILE);
         String path = "C:\\ableton\\saved samples\\m_drums\\LOOPS\\l8.wav";
         String relPath = "..\\..\\..\\..\\..\\..\\ableton\\saved samples\\m_drums\\LOOPS\\l8.wav";
 
         FileInputStream fileInputStream = new FileInputStream(file);
         InputStream gis = new GZIPInputStream(fileInputStream);
-        //InputStreamReader isr = new InputStreamReader(gis, "UTF-8");
         Document doc = builder.parse(gis);
 
         Document output = rackService.copyRack(path, relPath, doc);
-        File f = new File(System.getenv("Working_Dir") + "\\rackcopy\\src\\test\\resources\\adgcontents.txt");
+        File f = new File(ADG_CONTENTS_DIRECTORY);
         fw = new FileWriter(f);
         NodeList nodeList = output.getChildNodes();
 
