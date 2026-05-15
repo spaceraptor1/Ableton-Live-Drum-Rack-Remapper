@@ -46,6 +46,7 @@ public class RackService {
             docs.add(copyRack(paths.get(i), relPaths.get(i), doc));
         }
 
+        
     }
 
     public Document copyRack(String path, String relPath, Document document) {
